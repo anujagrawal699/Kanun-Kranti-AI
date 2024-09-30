@@ -14,6 +14,14 @@ const Searchbar = () => {
     const navigate = useNavigate();
     const { theme } = useTheme();
 
+    const defaultPrompts = [
+        "Explain Section 4 of Indian Commercial Court Act 2015",
+        "Summarize recent Indian Supreme Court judgments on property rights",
+        "Analyze the legal implications of AI in Indian healthcare",
+        "Discuss the key points of the latest Indian cybersecurity legislation"
+    ];
+
+
     // Toggle dropdown visibility
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -93,68 +101,8 @@ const Searchbar = () => {
     };
 
     return (
-        <form onSubmit={handleSearchSubmit} className="max-w-2xl w-full px-6 relative z-10">
-            <div className="h-10 w-full flex items-center space-x-1">
-                <div className="relative" ref={dropdownRef}>
-                    <button
-                        type="button"
-                        id="speed-dropdown"
-                        aria-haspopup="menu"
-                        aria-expanded={isOpen}
-                        onClick={toggleDropdown}
-                        className={`inline-flex items-center justify-center text-sm font-medium px-4 h-8 rounded-full whitespace-nowrap transition-colors ring-offset-background focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 hover:bg-accent hover:text-accent-foreground ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-[#302A2A]'
-                        }`}
-                    >
-                        <div className="flex items-center">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-fast-forward mr-1 text-green-500"
-                            >
-                                <polygon points="13 19 22 12 13 5 13 19" />
-                                <polygon points="2 19 11 12 2 5 2 19" />
-                            </svg>
-                            {getSelectedLabel()}
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="12"
-                                height="12"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-chevron-down ml-1 text-foreground/50"
-                            >
-                                <path d="m6 9 6 6 6-6" />
-                            </svg>
-                        </div>
-                    </button>
-
-                    {isOpen && (
-                        <div className={`absolute right-0 mt-2 w-56 ${theme === 'dark' ? 'bg-[#302A2A]' : 'bg-white'} shadow-lg rounded-md animate-slide-down z-10`}>
-                            <SpeedSelection
-                                selectedSpeed={selectedSpeed}
-                                setSelectedSpeed={(value) => {
-                                    setSelectedSpeed(value);
-                                    setIsOpen(false);
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            <div className="relative flex items-center w-full mt-2">
+        <div className="max-w-2xl w-full px-6 relative z-10">
+            <form onSubmit={handleSearchSubmit} className="relative">
                 <textarea
                     name="input"
                     placeholder="Enter about your case"
@@ -163,7 +111,7 @@ const Searchbar = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className={`w-full min-h-12 pl-4 pr-10 pt-3 pb-1 text-sm placeholder:text-gray-500 border ${
-                        theme === 'dark' ? 'border-[#302A2A] bg-[#302A2A] text-white' : 'border-gray-300 bg-white text-black'
+                        theme === 'dark' ? 'border-[#302A2A] bg-[#302A2A] text-white' : 'border-gray-300 bg-gray-200 text-black'
                     } rounded-full resize-none ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
                     rows="1"
                     tabIndex="0"
@@ -191,31 +139,36 @@ const Searchbar = () => {
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="lucide lucide-arrow-right"
+                            className="lucide lucide-arrow-up"
                         >
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
+                            <path d="m5 12 7-7 7 7" />
+                            <path d="M12 19V5" />
                         </svg>
                     )}
                 </button>
-                <div className={`absolute -bottom-5 right-2 transition-all duration-300 text-[10px] invisible md:visible ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-muted-foreground/0'
-                }`}>
-                    <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[10px]">
-                        <strong>Shift + Return</strong> to add a new line
-                    </label>
+            </form>
+
+            <div className="mt-4">
+                <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    Note: Please write complete prompts to provide context for the research AI. For example:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                    {defaultPrompts.map((prompt, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setInputValue(prompt)}
+                            className={`text-sm px-3 py-1 rounded-full ${
+                                theme === 'dark'
+                                    ? 'bg-gray-700 text-white hover:bg-gray-600'
+                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            } transition-colors`}
+                        >
+                            {prompt}
+                        </button>
+                    ))}
                 </div>
             </div>
-
-
-            <div className="mx-auto max-w-2xl transition-all invisible">
-                <div className="p-2">
-                    <div className="mt-4 flex flex-col items-start space-y-2 mb-4">
-                        {/* Search results or additional content can be added here */}
-                    </div>
-                </div>
-            </div>
-        </form>
+        </div>
     );
 }
 

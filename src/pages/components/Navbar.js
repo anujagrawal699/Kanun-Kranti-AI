@@ -35,7 +35,7 @@ const Navbar = () => {
     return (
         <header className="w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur bg-background/80 dark:bg-gray-800/80">
             <div className="flex items-center space-x-3">
-                <img src={ministryOfLaw} alt="Ministry of Law" className="h-12 w-40 object-cover" />
+               
                 
                 <a href="/">
                     <div className="p-1.5 flex items-center space-x-1">
