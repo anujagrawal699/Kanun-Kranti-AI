@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const welcomePhrases = [
-  { text: "Welcome to ", lang: "English" },
-  { text: "कानून क्रांति में आपका स्वागत है", lang: "Hindi" },
-  { text: "कानून क्रांतीमध्ये आपले स्वागत आहे", lang: "Marathi" },
+  { text: "Welcome to Kanun Kranti AI", lang: "English" },
+  { text: "कानून क्रांति AI में आपका स्वागत है", lang: "Hindi" },
+  { text: "कानून क्रांती AIमध्ये आपले स्वागत आहे", lang: "Marathi" },
   { text: "কানুন ক্রান্তিতে আপনাকে স্বাগতম", lang: "Bengali" },
   { text: "કાનૂન ક્રાંતિમાં આપનું સ્વાગત છે", lang: "Gujarati" },
   { text: "ਕਾਨੂਨ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ", lang: "Punjabi" },
