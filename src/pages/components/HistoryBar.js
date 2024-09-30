@@ -42,16 +42,16 @@ const HistoryBar = () => {
                 md:translate-x-0
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}
             `}>
-                <div className="p-4 mt-16 md:mt-4">
+                <div className="p-2 mt-16 md:mt-4">
                     <img
                         src={ministryOfLaw}
                         alt="Ministry of Law"
-                        className="h-20 w-70 rounded-lg mb-3 mx-auto"
+                        className="h-30 w-90 rounded-lg mb-3 mx-auto"
                     />
                     <div className="mb-6">
                         <h2 className="flex items-center text-sm font-semibold mb-2">
                             <Search size={16} className="mr-2" />
-                            Explore KanunKranti
+                            Explore Kanun Kranti
                         </h2>
                     </div>
                     
