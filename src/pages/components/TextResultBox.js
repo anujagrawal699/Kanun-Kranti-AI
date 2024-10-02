@@ -24,7 +24,7 @@ const TextResultBox = ({ apiResponse, selectedLanguage }) => {
                 setTranslationError(null);
                 try {
                     const response = await axios.post(
-                        'https://cors-anywhere.herokuapp.com/https://libretranslate.de/translate',
+                        'https://libretranslate.de/translate',
                         {
                             q: text,
                             source: 'en',
@@ -33,7 +33,6 @@ const TextResultBox = ({ apiResponse, selectedLanguage }) => {
                         {
                             headers: {
                                 'Content-Type': 'application/json',
-                                'Origin': 'http://localhost:3000'
                             },
                         }
                     );

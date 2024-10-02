@@ -298,7 +298,7 @@ function SearchResults() {
                 {/* Back to AI Search Button */}
                 <button 
                     onClick={handleBackToHome}
-                    className="mb-4 px-4 py-2 bg-[#302A2A] text-white text-sm rounded-full shadow-md hover:bg-gray-700 transition duration-300 ease-in-out flex items-center"
+                    className="mb-4 px-4 py-2 bg-[#302A2A] text-white text-sm rounded-full shadow-md hover:bg-black-500 transition duration-300 ease-in-out flex items-center"
                 >
                     <ArrowLeft size={16} className="mr-2" />
                     Back to AI Search

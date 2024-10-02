@@ -15,10 +15,10 @@ const Searchbar = () => {
     const { theme } = useTheme();
 
     const defaultPrompts = [
+        "What are the guidelines for awarding damages in high-value commercial cases?",
         "Explain Section 4 of Indian Commercial Court Act 2015",
         "Summarize recent Indian Supreme Court judgments on property rights",
-        "Analyze the legal implications of AI in Indian healthcare",
-        "Discuss the key points of the latest Indian cybersecurity legislation"
+        "What are the procedural timelines for commercial cases under the Commercial Courts Act?"
     ];
 
 
@@ -68,7 +68,7 @@ const Searchbar = () => {
             const response = await axios.post(API_ENDPOINT, {
                 contents: [{
                     parts: [{
-                        text: `${selectedSpeed}: ${query}`
+                        text: `${'Answer everything in the context of commercial court of India. You are reseacrh engine for indian commercial courts and respond each query based on it. Provide some historical cases on the query if you know and Add this speciific note at ending of Response, "The AI research should be considered as suggestion and should be verified for legal judgements."'}: ${query}`
                     }]
                 }]
             }, {
@@ -105,7 +105,7 @@ const Searchbar = () => {
             <form onSubmit={handleSearchSubmit} className="relative">
                 <textarea
                     name="input"
-                    placeholder="Enter about your case"
+                    placeholder="Enter about your research query in detail"
                     spellCheck="false"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}

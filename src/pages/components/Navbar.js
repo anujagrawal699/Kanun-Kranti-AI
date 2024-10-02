@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTheme } from './ThemeContext'; // Make sure the path is correct
 import DropdownMenu from './DropdownMenu';
+import { LogOut } from 'lucide-react';
 import ministryOfLaw from '../../assets/ministry_of_law.jpeg';
 
 const Navbar = ({onLogout}) => {
@@ -35,18 +36,18 @@ const Navbar = ({onLogout}) => {
     return (
         <header className="w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur bg-background/80 dark:bg-gray-800/80">
             <div className="flex items-center space-x-3">
-               
-                
-                <a href="/">
-                    <div className="p-1.5 flex items-center space-x-1">
-                        <svg fill="currentColor" viewBox="0 0 256 256" role="img" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
-                            <circle cx="128" cy="128" r="128" fill={theme === 'dark' ? '#fff' : '#222'}></circle>
-                            <circle cx="102" cy="128" r="18" fill={theme === 'dark' ? '#222' : '#fff'}></circle>
-                            <circle cx="154" cy="128" r="18" fill={theme === 'dark' ? '#222' : '#fff'}></circle>
-                        </svg>
-                    </div>
-                    <span className="sr-only">Morphic</span>
-                </a>
+            <a href="/">
+                {/* Logout button */}
+                <button
+                    onClick={onLogout}
+                    className="p-1.5 flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
+                    aria-label="Log out"
+                >
+                    <LogOut size={24} />
+                    <span className="sr-only">Log out</span>
+                </button>
+           
+            </a>
             </div>
 
             <div className="flex items-center space-x-1 relative" ref={menuRef}>

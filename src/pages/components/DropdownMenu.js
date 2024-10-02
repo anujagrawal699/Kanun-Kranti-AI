@@ -14,10 +14,7 @@ const DropdownMenu = () => {
         setTheme(newTheme);
     };
 
-    const handleLogout = () => {
-        console.log('Logging out...');
-        navigate('/login');
-    };
+  
 
     return (
         <div className="relative">
@@ -47,14 +44,6 @@ const DropdownMenu = () => {
                         >
                             <Home size={18} className="mr-3" />
                             Home
-                        </a>
-                        <a
-                            
-                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            onClick={handleLogout}
-                        >
-                            <LogOut size={18} className="mr-3" />
-                            Log Out
                         </a>
                         <a
                             href="mailto:anujagrawal380@gmail.com"
