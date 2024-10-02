@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaSearch, FaSortAmountDown, FaBookOpen, FaBalanceScale } from 'react-icons/fa';
-import SearchHeader from './components/SearchHeader';
+import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu, Filter, AlertCircle } from 'lucide-react';
 import Card from './components/Card';
-import TextResultBox from './components/TextResultBox';
 import FilterBar from './components/FilterBar';
-import GoogleTranslate from './components/GoogleTranslate';
-import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu } from 'lucide-react';
+import TextResultBox from './components/TextResultBox';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const cardData = [
     {
@@ -236,6 +235,49 @@ function SearchResults() {
         setSelectedLanguage(language);
     };
 
+    // New state and functions for added features
+    const [sortedCardData, setSortedCardData] = useState([]);
+    const [visibleCards, setVisibleCards] = useState(4);
+
+    useEffect(() => {
+        setSortedCardData(cardData);
+    }, []);
+
+    useEffect(() => {
+        sortCards(selectedOption);
+    }, [selectedOption]);
+
+    const sortCards = (option) => {
+        let sorted = [...cardData];
+        switch (option) {
+            case "Recent":
+                sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+                break;
+            case "Most popular":
+                sorted.sort((a, b) => b.popularity - a.popularity);
+                break;
+            case "Alphabetical":
+                sorted.sort((a, b) => a.title.localeCompare(b.title));
+                break;
+            default:
+                break;
+        }
+        setSortedCardData(sorted);
+    };
+
+    const loadMoreCards = () => {
+        setVisibleCards(prevVisible => prevVisible + 4);
+    };
+
+    // Sample data for the chart
+    const chartData = [
+        { year: '2015', cases: 4 },
+        { year: '2016', cases: 3 },
+        { year: '2017', cases: 5 },
+        { year: '2018', cases: 7 },
+        { year: '2019', cases: 6 },
+    ];
+
     return (
         <div className="relative min-h-screen bg-gray-100">
             {/* Mobile Filter Toggle Button */}
@@ -248,7 +290,7 @@ function SearchResults() {
 
             {/* FilterBar - Hidden on mobile unless toggled, wider on desktop */}
             <aside className={`fixed z-10 w-80 h-full bg-white shadow-lg transition-transform duration-300 ease-in-out transform ${isFilterOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
-            <FilterBar onLanguageChange={handleLanguageChange} />
+                <FilterBar onLanguageChange={handleLanguageChange} />
             </aside>
 
             {/* Main Content - Adjusted margin for wider filter bar */}
@@ -264,13 +306,26 @@ function SearchResults() {
 
                 {/* Research Summary */}
                 <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-8">
-                    <h2 className="text-xl md:text-2xl font-bold text-[#302A2A] mb-4">Research Summary on {searchQuery}</h2>
+                    <h2 className="text-m md:text-2xl font-bold text-[#302A2A] mb-4">Research Summary on {searchQuery}</h2>
                     <div className='relative'>
-                    <TextResultBox apiResponse={apiResponse} selectedLanguage={selectedLanguage} />
+                        <TextResultBox apiResponse={apiResponse} selectedLanguage={selectedLanguage} />
                     </div>
                     <button className="mt-4 text-[#302A2A] hover:text-brown-800 flex items-center">
                         <Info size={18} className="mr-1" /> View Full Analysis
                     </button>
+                </div>
+
+                {/* New Feature: Case Distribution Chart */}
+                <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-8">
+                    <h2 className="text-xl font-bold text-[#302A2A] mb-4">Case Distribution by Year</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={chartData}>
+                            <XAxis dataKey="year" />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey="cases" fill="#8884d8" />
+                        </BarChart>
+                    </ResponsiveContainer>
                 </div>
                 
                 {/* Results with Tabs */}
@@ -328,7 +383,7 @@ function SearchResults() {
                         </div>
 
                         <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" : "space-y-4 md:space-y-6"}>
-                            {cardData.map(card => (
+                            {sortedCardData.slice(0, visibleCards).map(card => (
                                 <Card
                                     key={card.id}
                                     title={card.title}
@@ -354,7 +409,47 @@ function SearchResults() {
                                 />
                             ))}
                         </div>
+                        {visibleCards < sortedCardData.length && (
+                            <div className="text-center mt-6">
+                                <button
+                                    onClick={loadMoreCards}
+                                    className="bg-[#302A2A] hover:bg-gray-800 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    Load More
+                                </button>
+                            </div>
+                        )}
                     </div>
+                </div>
+
+                {/* New Feature: Related Searches */}
+                <div className="mt-8 bg-white rounded-lg shadow-md p-4 md:p-6">
+                    <h2 className="text-xl font-bold text-[#302A2A] mb-4">Related Searches</h2>
+                    <div className="flex flex-wrap gap-2">
+                        {['Insurance Fraud', 'Motor Accident Claims', 'Arbitration in India', 'Contract Law'].map((term, index) => (
+                            <button
+                                key={index}
+                                className="bg-gray-200 hover:bg-gray-300 text-[#302A2A] font-semibold py-2 px-4 rounded-full text-sm"
+                                onClick={() => setSearchQuery(term)}
+                            >
+                                {term}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* New Feature: Search Tips */}
+                <div className="mt-8 bg-blue-50 rounded-lg p-4 md:p-6">
+                    <h2 className="text-xl font-bold text-[#302A2A] mb-4 flex items-center">
+                        <AlertCircle size={24} className="mr-2" />
+                        Search Tips
+                    </h2>
+                    <ul className="list-disc list-inside text-[#302A2A] space-y-2">
+                        <li>Use quotation marks for exact phrases: "arbitration agreement"</li>
+                        <li>Use AND, OR, NOT for complex queries: insurance AND fraud NOT life</li>
+                        <li>Use wildcards (*) for partial matches: insur*</li>
+                        <li>Refine your search using the filters on the left</li>
+                    </ul>
                 </div>
             </div>
         </div>

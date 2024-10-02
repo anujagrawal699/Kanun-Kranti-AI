@@ -1,102 +1,71 @@
 import React, { useState } from 'react';
-import { useTheme } from './ThemeContext'; // Make sure this path is correct
-import './DropDownMenu.css'; // Import the CSS file
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from './ThemeContext';
+import { Sun, Moon, Settings, Home, LogOut, Mail } from 'lucide-react'; // Assuming you're using lucide-react for icons
 
 const DropdownMenu = () => {
-    const [themeOpen, setThemeOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const { theme, setTheme } = useTheme();
+    const navigate = useNavigate();
 
-    const toggleThemeMenu = () => {
-        setThemeOpen(!themeOpen);
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
+    const handleThemeChange = (newTheme) => {
+        setTheme(newTheme);
     };
 
-    const handleThemeChange = (newTheme, e) => {
-        e.preventDefault();
-        setTheme(newTheme);
-        setThemeOpen(false);
+    const handleLogout = () => {
+        console.log('Logging out...');
+        navigate('/login');
     };
 
     return (
         <div className="relative">
-            <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-20 transition-transform transform opacity-100 animate-slide-down">
-                <ul className="py-1 text-sm font-medium">
-                    <li className="relative">
-                        <button
-                            onClick={toggleThemeMenu}
-                            className="w-full text-left block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            {/* Only one button to toggle the dropdown */}
+            <button 
+                onClick={toggleDropdown}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
+            >
+                <Settings size={20} />
+            </button>
+            {isOpen && (
+                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-700">
+                    <div className="py-1">
+                        <a
+                            href="#"
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            onClick={() => handleThemeChange(theme === 'dark' ? 'light' : 'dark')}
                         >
-                            Theme
-                            <span className="ml-auto">›</span>
-                        </button>
-                        {themeOpen && (
-                            <div className="absolute right-full top-0 mt-0.5 w-32 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-30 transition-transform transform opacity-100 animate-slide-left">
-                                <ul className="py-1 text-sm font-medium">
-                                    <li>
-                                        <a
-                                            href="#"
-                                            onClick={(e) => handleThemeChange('light', e)}
-                                            className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                            </svg>
-                                            Light
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            onClick={(e) => handleThemeChange('dark', e)}
-                                            className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                                                <circle cx="12" cy="12" r="10" fill="black"></circle>
-                                            </svg>
-                                            Dark
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            onClick={(e) => handleThemeChange('system', e)}
-                                            className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                                                <circle cx="12" cy="12" r="10" fill="gray"></circle>
-                                            </svg>
-                                            System
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        )}
-                    </li>
-                    <li>
+                            {theme === 'dark' ? <Sun size={18} className="mr-3" /> : <Moon size={18} className="mr-3" />}
+                            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                        </a>
+                    </div>
+                    <div className="py-1">
                         <a
                             href="/home"
-                            className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
+                            <Home size={18} className="mr-3" />
                             Home
                         </a>
-                    </li>
-                    <li>
                         <a
-                            href="/logout"
-                            className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                            
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            onClick={handleLogout}
                         >
+                            <LogOut size={18} className="mr-3" />
                             Log Out
                         </a>
-                    </li>
-                    <li>
                         <a
                             href="mailto:anujagrawal380@gmail.com"
-                            className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
+                            <Mail size={18} className="mr-3" />
                             Contact Us
                         </a>
-                    </li>
-                </ul>
-            </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
