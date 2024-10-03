@@ -59,7 +59,7 @@ const HistoryBar = () => {
                     <img
                         src={ministryOfLaw}
                         alt="Ministry of Law"
-                        className="h-30 w-90 rounded-lg mb-3 mx-auto"
+                        className="h-25 w-70 rounded-lg mb-3 mx-auto"
                     />
                     <div className="mb-6">
                         <h2 className="flex items-center text-sm font-semibold mb-2">

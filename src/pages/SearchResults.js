@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaSearch, FaSortAmountDown, FaBookOpen, FaBalanceScale } from 'react-icons/fa';
-import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu, Filter, AlertCircle } from 'lucide-react';
+import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu, Filter, AlertCircle, X } from 'lucide-react';
 import Card from './components/Card';
+import LawCard from './components/LawCard';
 import FilterBar from './components/FilterBar';
 import TextResultBox from './components/TextResultBox';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import FullAnalysis from './components/FullAnalysis';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const cardData = [
     {
@@ -199,6 +201,37 @@ const cardData = [
     // Add more card data objects as needed
 ];
 
+const relatedLawsData = [
+    {
+        id: 1,
+        title: "Commercial Courts Act, 2015",
+        description: "An Act to provide for the constitution of Commercial Courts, Commercial Division and Commercial Appellate Division in the High Courts for adjudicating commercial disputes.",
+        relevantSections: "Sections 3, 4, 7, 12",
+        keyProvisions: "Establishment of Commercial Courts, Jurisdiction, Appeals"
+    },
+    {
+        id: 2,
+        title: "Arbitration and Conciliation Act, 1996",
+        description: "An Act to consolidate and amend the law relating to domestic arbitration, international commercial arbitration and enforcement of foreign arbitral awards.",
+        relevantSections: "Sections 2, 7, 34, 48",
+        keyProvisions: "Arbitration Agreement, Setting Aside Arbitral Awards, Enforcement of Foreign Awards"
+    },
+    {
+        id: 3,
+        title: "Specific Relief Act, 1963",
+        description: "An Act to define and amend the law relating to certain kinds of specific relief.",
+        relevantSections: "Sections 10, 14, 16",
+        keyProvisions: "Specific Performance of Contract, Rectification of Instruments, Declaratory Decrees"
+    },
+    {
+        id: 4,
+        title: "Companies Act, 2013",
+        description: "An Act to consolidate and amend the law relating to companies.",
+        relevantSections: "Sections 241, 242, 245",
+        keyProvisions: "Oppression and Mismanagement, Class Action Suits"
+    }
+];
+
 function SearchResults() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -206,22 +239,52 @@ function SearchResults() {
     const [apiResponse, setApiResponse] = useState(null);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedOption, setSelectedOption] = useState("");
+    const [viewMode, setViewMode] = useState("list");
+    const [activeTab, setActiveTab] = useState("all");
+    const [sortedCardData, setSortedCardData] = useState([]);
+    const [visibleCards, setVisibleCards] = useState(4);
 
     useEffect(() => {
-        console.log('Location state:', location.state);
         if (location.state) {
             setSearchQuery(location.state.searchQuery || '');
             setApiResponse(location.state.apiResponse || null);
         }
     }, [location]);
 
-    const [selectedOption, setSelectedOption] = useState("");
-    const [viewMode, setViewMode] = useState("list");
-    const [activeTab, setActiveTab] = useState("all");
+    useEffect(() => {
+        setSortedCardData(cardData);
+    }, []);
+
+    useEffect(() => {
+        sortCards(selectedOption);
+    }, [selectedOption]);
 
     const handleChange = (e) => {
         setSelectedOption(e.target.value);
     }
+
+    const [isFullAnalysisOpen, setIsFullAnalysisOpen] = useState(false);
+    const fullAnalysisRef = useRef(null);
+    const toggleFullAnalysis = () => {
+        setIsFullAnalysisOpen(!isFullAnalysisOpen);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (fullAnalysisRef.current && !fullAnalysisRef.current.contains(event.target)) {
+                setIsFullAnalysisOpen(false);
+            }
+        };
+
+        if (isFullAnalysisOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isFullAnalysisOpen]);
 
     const handleBackToHome = () => {
         navigate('/');
@@ -234,18 +297,6 @@ function SearchResults() {
     const handleLanguageChange = (language) => {
         setSelectedLanguage(language);
     };
-
-    // New state and functions for added features
-    const [sortedCardData, setSortedCardData] = useState([]);
-    const [visibleCards, setVisibleCards] = useState(4);
-
-    useEffect(() => {
-        setSortedCardData(cardData);
-    }, []);
-
-    useEffect(() => {
-        sortCards(selectedOption);
-    }, [selectedOption]);
 
     const sortCards = (option) => {
         let sorted = [...cardData];
@@ -269,14 +320,26 @@ function SearchResults() {
         setVisibleCards(prevVisible => prevVisible + 4);
     };
 
-    // Sample data for the chart
-    const chartData = [
+   
+
+    // Sample data for charts
+    const caseDistributionData = [
         { year: '2015', cases: 4 },
         { year: '2016', cases: 3 },
         { year: '2017', cases: 5 },
         { year: '2018', cases: 7 },
         { year: '2019', cases: 6 },
     ];
+
+    const caseTypeData = [
+        { name: 'Contract Disputes', value: 35 },
+        { name: 'Intellectual Property', value: 25 },
+        { name: 'Corporate Governance', value: 20 },
+        { name: 'Bankruptcy', value: 15 },
+        { name: 'Others', value: 5 },
+    ];
+
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
     return (
         <div className="relative min-h-screen bg-gray-100">
@@ -303,23 +366,24 @@ function SearchResults() {
                     <ArrowLeft size={16} className="mr-2" />
                     Back to AI Search
                 </button>
-
-                {/* Research Summary */}
                 <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-8">
                     <h2 className="text-m md:text-2xl font-bold text-[#302A2A] mb-4">Research Summary on {searchQuery}</h2>
                     <div className='relative'>
                         <TextResultBox apiResponse={apiResponse} selectedLanguage={selectedLanguage} />
                     </div>
-                    <button className="mt-4 text-[#302A2A] hover:text-brown-800 flex items-center">
-                        <Info size={18} className="mr-1" /> View Full Analysis
-                    </button>
+                    <button 
+    onClick={toggleFullAnalysis} 
+    className="mt-4 text-[#302A2A] hover:text-brown-800 flex items-center"
+>
+    <Info size={18} className="mr-1" /> View Full Analysis
+</button>
                 </div>
 
-                {/* New Feature: Case Distribution Chart */}
+                {/* Research Summary */}
                 <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-8">
                     <h2 className="text-xl font-bold text-[#302A2A] mb-4">Case Distribution by Year</h2>
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={chartData}>
+                        <BarChart data={caseDistributionData}>
                             <XAxis dataKey="year" />
                             <YAxis />
                             <Tooltip />
@@ -327,12 +391,43 @@ function SearchResults() {
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
+
+                {/* Case Type Distribution Chart */}
+                <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-8">
+                    <h2 className="text-xl font-bold text-[#302A2A] mb-4">Case Type Distribution</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <PieChart>
+                            <Pie
+                                data={caseTypeData}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={false}
+                                outerRadius={100}
+                                fill="#8884d8"
+                                dataKey="value"
+                            >
+                                {caseTypeData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Tooltip />
+                        </PieChart>
+                    </ResponsiveContainer>
+                    <div className="mt-4 flex flex-wrap justify-center">
+                        {caseTypeData.map((entry, index) => (
+                            <div key={`legend-${index}`} className="flex items-center mr-4 mb-2">
+                                <div className="w-4 h-4 mr-2" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
+                                <span>{entry.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 
                 {/* Results with Tabs */}
                 <div className="bg-white rounded-lg shadow-md">
-                    <div className="border-b border-gray-200 overflow-x-auto">
+                <div className="border-b border-gray-200 overflow-x-auto">
                         <nav className="flex">
-                            {["all", "cases", "laws", "concepts"].map((tab) => (
+                            {["all", "cases", "laws"].map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
@@ -344,15 +439,14 @@ function SearchResults() {
                                 >
                                     {tab === "cases" && <BookOpen size={16} className="mr-2" />}
                                     {tab === "laws" && <Scale size={16} className="mr-2" />}
-                                    {tab === "concepts" && <Gavel size={16} className="mr-2" />}
                                     {tab.charAt(0).toUpperCase() + tab.slice(1)}
                                 </button>
                             ))}
                         </nav>
                     </div>
                     <div className="p-4 md:p-6">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
-                            <h2 className="text-lg md:text-xl font-bold text-[#302A2A] mb-2 md:mb-0">Related {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
+                    <h2 className="text-lg md:text-xl font-bold text-[#302A2A] mb-2 md:mb-0">Related {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
                             <div className="flex items-center space-x-2 md:space-x-4">
                                 <button
                                     onClick={() => setViewMode("list")}
@@ -383,33 +477,44 @@ function SearchResults() {
                         </div>
 
                         <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" : "space-y-4 md:space-y-6"}>
-                            {sortedCardData.slice(0, visibleCards).map(card => (
-                                <Card
-                                    key={card.id}
-                                    title={card.title}
-                                    date={card.date}
-                                    description={card.description}
-                                    link={card.link}
-                                    caseno={card.caseno}
-                                    casename={card.casename}
-                                    court={card.court}
-                                    casestatus={card.casestatus}
-                                    judge={card.judge}
-                                    sect={card.sect}
-                                    facts={card.facts}
-                                    petition={card.petition}
-                                    legalissues={card.legalissues}
-                                    keylegalques={card.keylegalques}
-                                    plaintiffarguments={card.plaintiffarguments}
-                                    defendantarguments={card.defendantarguments}
-                                    courtsreasoning={card.courtsreasoning}
-                                    decision={card.decision}
-                                    conclusion={card.conclusion}
-                                    casesummary={card.casesummary}
-                                />
-                            ))}
+                        {activeTab === "laws" 
+  ? relatedLawsData.map(law => (
+      <LawCard
+        key={law.id}
+        title={law.title}
+        description={law.description}
+        relevantSections={law.relevantSections}
+        keyProvisions={law.keyProvisions}
+      />
+    ))
+                                : sortedCardData.slice(0, visibleCards).map(card => (
+                                    <Card
+                                        key={card.id}
+                                        title={card.title}
+                                        date={card.date}
+                                        description={card.description}
+                                        link={card.link}
+                                        caseno={card.caseno}
+                                        casename={card.casename}
+                                        court={card.court}
+                                        casestatus={card.casestatus}
+                                        judge={card.judge}
+                                        sect={card.sect}
+                                        facts={card.facts}
+                                        petition={card.petition}
+                                        legalissues={card.legalissues}
+                                        keylegalques={card.keylegalques}
+                                        plaintiffarguments={card.plaintiffarguments}
+                                        defendantarguments={card.defendantarguments}
+                                        courtsreasoning={card.courtsreasoning}
+                                        decision={card.decision}
+                                        conclusion={card.conclusion}
+                                        casesummary={card.casesummary}
+                                    />
+                                ))
+                            }
                         </div>
-                        {visibleCards < sortedCardData.length && (
+                        {visibleCards < sortedCardData.length && activeTab !== "laws" && (
                             <div className="text-center mt-6">
                                 <button
                                     onClick={loadMoreCards}
@@ -452,6 +557,24 @@ function SearchResults() {
                     </ul>
                 </div>
             </div>
+            {isFullAnalysisOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+                    <div 
+                        ref={fullAnalysisRef} 
+                        className="bg-white rounded-lg p-4 sm:p-6 w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-4xl h-[80vh] sm:h-[85vh] md:h-[90vh] overflow-y-auto"
+                    >
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#302A2A]">Full Analysis</h2>
+                            <button onClick={toggleFullAnalysis} className="text-gray-500 hover:text-gray-700">
+                                <X size={24} />
+                            </button>
+                        </div>
+                        <div className="overflow-y-auto h-[calc(100%-3rem)]">
+                            <FullAnalysis apiResponse={apiResponse} selectedLanguage={selectedLanguage} />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
