@@ -283,7 +283,7 @@ function SearchResults() {
             {/* Mobile Filter Toggle Button */}
             <button
                 onClick={toggleFilter}
-                className="fixed top-4 left-4 z-20 md:hidden bg-[#302A2A] text-white p-2 rounded-full shadow-md"
+                className="fixed top-4 left-80 z-20 md:hidden bg-[#302A2A] text-white p-2 rounded-full shadow-md"
             >
                 <Menu size={24} />
             </button>

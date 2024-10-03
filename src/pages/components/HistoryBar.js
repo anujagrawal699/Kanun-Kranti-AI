@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useTheme } from './ThemeContext'; // Make sure this path is correct
 import ministryOfLaw from '../../assets/ministry_of_law.jpeg';
 import { Menu, Search } from 'lucide-react';
 
 const HistoryBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { theme } = useTheme();
 
     const dummyData = {
         today: [
@@ -23,19 +25,30 @@ const HistoryBar = () => {
         ],
     };
 
+    const getThemeClasses = () => {
+        return theme === 'dark'
+            ? 'bg-gray-700 text-white'
+            : 'bg-[#302A2A] text-white';
+    };
+
+    const getHoverClasses = () => {
+        return theme === 'dark'
+            ? 'hover:bg-gray-500'
+            : 'hover:bg-gray-800';
+    };
+
     return (
         <>
             {/* Mobile dropdown toggle */}
             <button
-                className="md:hidden fixed top-4 left-4 z-50 p-2 bg-[#302A2A] text-white rounded-md"
+                className={`md:hidden fixed top-12 left-2 z-50 p-2 rounded-md ${getThemeClasses()}`}
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <Menu size={24} />
             </button>
-
             {/* HistoryBar content */}
             <div className={`
-                bg-[#302A2A] text-white
+                ${getThemeClasses()}
                 fixed top-0 left-0 h-screen w-64
                 transform transition-transform duration-300 ease-in-out
                 overflow-y-auto
@@ -54,41 +67,24 @@ const HistoryBar = () => {
                             Explore Kanun Kranti
                         </h2>
                     </div>
-                    
+                   
                     <div className="space-y-5">
-    <div>
-        <h3 className="text-xs font-semibold mb-1 text-gray-500 uppercase">Today</h3>
-        <ul className="space-y-1">
-            {dummyData.today.map(item => (
-                <li key={item.id} className="text-xs text-white-500 hover:text-white hover:bg-gray-700 px-2 py-1 rounded transition-colors duration-150 ease-in-out">{item.title}</li>
-            ))}
-        </ul>
-    </div>
-    <div>
-        <h3 className="text-xs font-semibold mb-1 text-gray-500 uppercase">Yesterday</h3>
-        <ul className="space-y-1">
-            {dummyData.yesterday.map(item => (
-                <li key={item.id} className="text-xs text-white-500 hover:text-white hover:bg-gray-700 px-2 py-1 rounded transition-colors duration-150 ease-in-out">{item.title}</li>
-            ))}
-        </ul>
-    </div>
-    <div>
-        <h3 className="text-xs font-semibold mb-1 text-gray-500 uppercase">Previous 30 Days</h3>
-        <ul className="space-y-1">
-            {dummyData.previous30Days.map(item => (
-                <li key={item.id} className="text-xs text-white-500 hover:text-white hover:bg-gray-700 px-2 py-1 rounded transition-colors duration-150 ease-in-out">{item.title}</li>
-            ))}
-        </ul>
-    </div>
-    <div>
-        <h3 className="text-xs font-semibold mb-1 text-gray-500 uppercase">September</h3>
-        <ul className="space-y-1">
-            {dummyData.january.map(item => (
-                <li key={item.id} className="text-xs text-white-500 hover:text-white hover:bg-gray-700 px-2 py-1 rounded transition-colors duration-150 ease-in-out">{item.title}</li>
-            ))}
-        </ul>
-    </div>
-</div>
+                        {Object.entries(dummyData).map(([section, items]) => (
+                            <div key={section}>
+                                <h3 className="text-xs font-semibold mb-1 text-gray-500 uppercase">{section}</h3>
+                                <ul className="space-y-1">
+                                    {items.map(item => (
+                                        <li 
+                                            key={item.id} 
+                                            className={`text-xs 'text-gray-300' ${getHoverClasses()} px-2 py-1 rounded transition-colors duration-150 ease-in-out`}
+                                        >
+                                            {item.title}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
-import { Sun, Moon, Settings, Home, LogOut, Mail } from 'lucide-react'; // Assuming you're using lucide-react for icons
+import { Sun, Moon, Settings, Home, LogOut, Mail } from 'lucide-react';
 
 const DropdownMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -14,11 +15,21 @@ const DropdownMenu = () => {
         setTheme(newTheme);
     };
 
-  
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
-        <div className="relative">
-            {/* Only one button to toggle the dropdown */}
+        <div className="relative" ref={dropdownRef}>
             <button 
                 onClick={toggleDropdown}
                 className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"

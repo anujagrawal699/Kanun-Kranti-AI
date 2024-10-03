@@ -111,7 +111,7 @@ const Searchbar = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className={`w-full min-h-12 pl-4 pr-10 pt-3 pb-1 text-sm placeholder:text-gray-500 border ${
-                        theme === 'dark' ? 'border-[#302A2A] bg-[#302A2A] text-white' : 'border-gray-300 bg-gray-200 text-black'
+                        theme === 'dark' ? 'border-[#302A2A] bg-[#060202] text-white' : 'border-gray-300 bg-gray-200 text-black'
                     } rounded-full resize-none ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
                     rows="1"
                     tabIndex="0"
