@@ -22,37 +22,11 @@ function Home() {
                     <Header />
                     <Searchbar />
                 </main>
-                <footer className="w-fit p-1 md:p-2 fixed bottom-0 right-0">
-                    <div className="flex justify-end space-x-2">
-                        <button
-                            className={`inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                            }`}
-                            aria-label="Help"
-                            type="button"
-                            id="radix-:R5ja:"
-                            aria-haspopup="menu"
-                            aria-expanded="false"
-                            data-state="closed"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-circle-help"
-                            >
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                                <path d="M12 17h.01" />
-                            </svg>
-                        </button>
-                    </div>
+                <footer className="w-full sm:w-auto p-4 fixed bottom-0 right-0 sm:right-4 md:right-60 text-center sm:text-right text-sm">
+                    <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                        © {new Date().getFullYear()} Kanun Kranti AI. All rights reserved. 
+                        Developed with ❤️ for the betterment of legal research.
+                    </p>
                 </footer>
             </div>
         </div>

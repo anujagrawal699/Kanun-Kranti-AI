@@ -16,7 +16,7 @@ const LoginPage = ({onLogin}) => {
       setIsLoading(false);
       onLogin(); // Call this function when login is successful
       navigate('/');
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -39,7 +39,7 @@ const LoginPage = ({onLogin}) => {
                 name="username"
                 type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
+                placeholder="Username (Optional)"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -51,7 +51,7 @@ const LoginPage = ({onLogin}) => {
                 name="password"
                 type="password"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="Password (Optional)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -59,9 +59,17 @@ const LoginPage = ({onLogin}) => {
           </div>
 
           <div>
-            <button
+          <button
               type="submit"
               className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#302A2A] hover:bg-[#0b0b0b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 ${
+                isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              
+            >
+              Skip</button>
+            <button
+              type="submit"
+              className={`group relative w-full top-4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#302A2A] hover:bg-[#0b0b0b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 ${
                 isLoading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               disabled={isLoading}
@@ -74,6 +82,7 @@ const LoginPage = ({onLogin}) => {
               ) : null}
               {isLoading ? 'Logging in...' : 'Log in'}
             </button>
+
           </div>
         </form>
 
