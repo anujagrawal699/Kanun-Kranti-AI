@@ -114,13 +114,7 @@ const FilterBar = ({ onLanguageChange }) => {
                 </button>
             </div>
 
-            <FilterSection
-                title="Courts"
-                category="courts"
-                items={['Madras High Court', 'Delhi High Court', 'Supreme Court', 'Gujarat High Court', 'Kerala High Court', 'Assam High Court']}
-                isExpanded={expandedSections.courts}
-                onToggle={toggleSection}
-            />
+           
 
             <FilterSection
                 title="Case Status"

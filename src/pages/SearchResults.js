@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaSearch, FaSortAmountDown, FaBookOpen, FaBalanceScale } from 'react-icons/fa';
-import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu, Filter, AlertCircle, X } from 'lucide-react';
+import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu, Filter, AlertCircle, X, Search } from 'lucide-react';
 import Card from './components/Card';
 import LawCard from './components/LawCard';
 import FilterBar from './components/FilterBar';
@@ -99,105 +99,159 @@ const cardData = [
         "casesummary": "The ruling reinforced the need for fair and transparent regulatory frameworks in the electricity industry to balance the interests of producers and consumers."
     },
     {
-        id: 5,
-        title: 'United India Insurance Co. Ltd. v. B. Suresh ',
-        description: 'In this case, the Madras High Court dismissed a review petition filed by an insurance company against a claimant who was awarded compensation for an accident.The court found that the insurance company had failed to provide sufficient evidence to substantiate their allegations of fraud.',
-        date: '2015',
-        caseno : "C.R.P(NPD)Nos.199 to 203 of 2006 & C.M.P.Nos.1573 to 1577 of 2006",
-        casename: "M/S.United India Insurance Company Ltd vs Balakrishnan Suresh",
-        date: "(24 July, 2015)",
-        court : "Madras High Court",
-        casestatus: " Disposed off",
-        judge: "Ms.Justice P.T.ASHA",
-        sect: "Article 227 of the Constitution of India",
-        facts: "The accident involved a Premier Padmini Car, initially claimed to be a Maruti Car.\nThe insurance company (petitioner) alleged that the Padmini Car was insured with New India Insurance Company.\nThe claimant (respondent) argued that the vehicle details were correctly provided in the FIR and a separate claim for car damage was filed.\nThe Insurance Company filed a review petition alleging fraud by the claimant after the initial award was passed.",
-        petition: "The Insurance Company filed Civil Revision Petitions (C.R.P) under Article 227 of the Constitution of India to challenge the order passed by the Motor Accidents Claims Tribunal (MACT).\nThe review petition aimed to overturn the award passed by the MACT in favor of the claimant.",
-        legalissues: "Whether the Insurance Company successfully established fraud by the claimant.\nWhether the Insurance Company had grounds to seek a review of the award.",
-        keylegalques: "Whether the Insurance Company's allegations of fraud were substantiated and sufficient to warrant a review of the original award.",
-        plaintiffarguments: "The Insurance Company argued that the claimant had deliberately misrepresented the vehicle involved in the accident.\nThey claimed to have discovered the fraud after the initial award was passed.\nThey presented evidence indicating the claimant's involvement in multiple fraudulent claims.",
-        defendantarguments: "The claimant argued that the vehicle details were correctly provided in the FIR.\nThey stated that they had filed separate claims for the damage caused to their car.\nThey contended that the Insurance Company had failed to prove fraud during the initial trial.",
-        courtsreasoning: "The Court noted the Insurance Company's inability to provide evidence for their allegations of fraud despite lodging a complaint against the claimant.\nThe Court considered the fact that the review petition was filed only after the execution petition was filed, suggesting a delay tactic.\nThe Court found the Insurance Company's allegations of fraud unsubstantiated.",
-        decision: "The Court dismissed the Civil Revision Petitions filed by the Insurance Company.\nThe Court refused to interfere with the MACT's decision on the grounds of lack of evidence for fraud allegations.",
-        conclusion: "The Court concluded that the Insurance Company failed to establish the fraud allegations against the claimant.\nThe Court upheld the MACT's award in favor of the claimant, dismissing the review petition.",
-        casesummary: "This case involved an insurance company (United India Insurance) challenging an award passed by the Motor Accidents Claims Tribunal (MACT) in favor of a claimant. The insurance company alleged fraud by the claimant, claiming that they misrepresented the vehicle involved in the accident. However, the court dismissed the insurance company's petition, finding no evidence to support the allegations of fraud. The court upheld the MACT's original award, ruling in favor of the claimant."
-    },
-    {
-        id: 6,
-        title: 'National Insurance Co. Ltd. v. Smt. Savita ',
-        description: 'The Delhi High Court upheld an award in favor of a claimant against an insurance company, rejecting their allegations of fraud.The court emphasized that the burden of proof lies with the party making the allegations, and the insurance company had failed to meet this burden.',
-        date: '(2018)',
-        caseno: 'C.R.P.(MD)No.974 of 2017',
-        casename: 'National Insurance Company Limited vs A.Savariammal',
-        court: 'Madras High Court',
-        casestatus: 'Disposed off (Revision Petition dismissed)',
-        judge: "Hon'ble Mr. Justice C. Kumarappan",
-        sect: 'Article 227 of the Constitution of India, Section 151 C.P.C., Section 64 VB of the Insurance Act, 1938',
-        facts: "The claimants (A.Savariammal, her children, and mother) filed a Motor Accident Claims Petition (M.C.O.P.) for the death of Aurlanandhu. The accident involved a Mahindra Van, bearing Registration No. TN-45-C-4500, insured by the National Insurance Company Limited. The Tribunal awarded Rs. 3,17,000/- to the claimants, finding that the insurance company admitted coverage. After four years, the insurance company sought to recall the award, alleging fraud by the claimants regarding the insurance policy. The insurance company claimed they initially believed the policy due to a software error and only discovered the alleged fraud later.",
-        petition: "Whether the Tribunal had jurisdiction to recall the award under Section 151 C.P.C. based on the insurance company's claim of fraud. Whether the claimants actually committed fraud, considering the insurance company's admission of coverage.",
-        legalissues: "Can an award be recalled based on alleged fraud when the insurer initially admitted coverage and then later claimed a software error led to a belated discovery of fraud?",
-        keylegalques: "Whether the Tribunal had jurisdiction to recall the award under Section 151 C.P.C. based on the insurance company's claim of fraud.",
-        plaintiffarguments: "The claimants committed fraud by misrepresenting the insurance policy details. The Tribunal has inherent power under Section 151 C.P.C. to recall awards obtained through fraud. The software error prevented them from detecting the fraud earlier.",
-        defendantarguments: "No fraud was committed, and the insurance company admitted coverage in their counter statement. The insurance company's claim of software error and belated discovery of fraud is a flimsy excuse. The insurance company should have verified the policy details before filing their counter statement.",
-        courtsreasoning: "The court analyzed the evidence presented, including the claimants' documents, witnesses, and the insurance company's affidavit. The court found no evidence of fraud committed by the claimants. The insurance company's claim of software error was not credible, as there were established procedures for verifying insurance coverage. The court relied on previous judgments emphasizing the responsibility of insurance companies to verify policy details and avoid 'deny everything and await the award syndrome.' The court recognized the hardship faced by claimants who have to wait for compensation while insurers delay proceedings.",
-        decision: "The court dismissed the revision petition, upholding the Tribunal's award. The insurance company was ordered to deposit the entire award amount within four weeks.",
-        conclusion: "The Madras High Court found that the insurance company's claim of fraud was unfounded and based on a belated discovery that should have been investigated earlier. The court emphasized the importance of insurers verifying policy details and acting responsibly in motor accident claims.",
-        casesummary: "The insurance company sought to recall an award granted to claimants after four years, alleging fraud. However, the court dismissed the claim, finding no evidence of fraud and concluding that the insurance company's belated discovery was not credible. The court stressed the importance of insurers verifying policy details and acting in good faith."
-    
-
-    },
-    {
-
-        id: 7,
-        title: 'New India Assurance Co. Ltd. v. M/S. Sai Sagar Constructions ',
-        description: 'The Kerala High Court dismissed a review petition filed by an insurance company against a claimant who was awarded compensation for property damage.The court found that the insurance company had failed to provide sufficient evidence to substantiate their allegations of fraud and upheld the original award in favor of the claimant.',
-        date: '(2020)',
-        caseno: 'C.R.P.(MD)No.974 of 2017',
-        casename: 'National Insurance Company Limited vs A.Savariammal',
-        court: 'Madras High Court',
-        casestatus: 'Disposed off (Revision Petition dismissed)',
-        judge: "Hon'ble Mr. Justice C. Kumarappan",
-        sect: 'Article 227 of the Constitution of India, Section 151 C.P.C., Section 64 VB of the Insurance Act, 1938',
-        facts: "The claimants (A.Savariammal, her children, and mother) filed a Motor Accident Claims Petition (M.C.O.P.) for the death of Aurlanandhu. The accident involved a Mahindra Van, bearing Registration No. TN-45-C-4500, insured by the National Insurance Company Limited. The Tribunal awarded Rs. 3,17,000/- to the claimants, finding that the insurance company admitted coverage. After four years, the insurance company sought to recall the award, alleging fraud by the claimants regarding the insurance policy. The insurance company claimed they initially believed the policy due to a software error and only discovered the alleged fraud later.",
-        petition: "Whether the Tribunal had jurisdiction to recall the award under Section 151 C.P.C. based on the insurance company's claim of fraud. Whether the claimants actually committed fraud, considering the insurance company's admission of coverage.",
-        legalissues: "Can an award be recalled based on alleged fraud when the insurer initially admitted coverage and then later claimed a software error led to a belated discovery of fraud?",
-        keylegalques: "Whether the Tribunal had jurisdiction to recall the award under Section 151 C.P.C. based on the insurance company's claim of fraud.",
-        plaintiffarguments: "The claimants committed fraud by misrepresenting the insurance policy details. The Tribunal has inherent power under Section 151 C.P.C. to recall awards obtained through fraud. The software error prevented them from detecting the fraud earlier.",
-        defendantarguments: "No fraud was committed, and the insurance company admitted coverage in their counter statement. The insurance company's claim of software error and belated discovery of fraud is a flimsy excuse. The insurance company should have verified the policy details before filing their counter statement.",
-        courtsreasoning: "The court analyzed the evidence presented, including the claimants' documents, witnesses, and the insurance company's affidavit. The court found no evidence of fraud committed by the claimants. The insurance company's claim of software error was not credible, as there were established procedures for verifying insurance coverage. The court relied on previous judgments emphasizing the responsibility of insurance companies to verify policy details and avoid 'deny everything and await the award syndrome.' The court recognized the hardship faced by claimants who have to wait for compensation while insurers delay proceedings.",
-        decision: "The court dismissed the revision petition, upholding the Tribunal's award. The insurance company was ordered to deposit the entire award amount within four weeks.",
-        conclusion: "The Madras High Court found that the insurance company's claim of fraud was unfounded and based on a belated discovery that should have been investigated earlier. The court emphasized the importance of insurers verifying policy details and acting responsibly in motor accident claims.",
-        casesummary: "The insurance company sought to recall an award granted to claimants after four years, alleging fraud. However, the court dismissed the claim, finding no evidence of fraud and concluding that the insurance company's belated discovery was not credible. The court stressed the importance of insurers verifying policy details and acting in good faith."
-
-
-
-
-        
-
-    },
-    {
-        id: 8,
-        title: 'United India Insurance Co. Ltd. v. A. Ramu ',
-        description: 'The Madras High Court allowed a writ petition filed by an insurance agent against an insurance company, ordering them to pay commission on policies procured during his time as an agent.The court held that the insurance agents resignation and subsequent joining of a competing company did not automatically disqualify him from receiving commission.',
-        date: '(2019)',
-        caseno: 'C.R.P.(MD)No.974 of 2017',
-        casename: 'National Insurance Company Limited vs A.Savariammal',
-        court: 'Madras High Court',
-        casestatus: 'Disposed off (Revision Petition dismissed)',
-        judge: "Hon'ble Mr. Justice C. Kumarappan",
-        sect: 'Article 227 of the Constitution of India, Section 151 C.P.C., Section 64 VB of the Insurance Act, 1938',
-        facts: "The claimants (A.Savariammal, her children, and mother) filed a Motor Accident Claims Petition (M.C.O.P.) for the death of Aurlanandhu. The accident involved a Mahindra Van, bearing Registration No. TN-45-C-4500, insured by the National Insurance Company Limited. The Tribunal awarded Rs. 3,17,000/- to the claimants, finding that the insurance company admitted coverage. After four years, the insurance company sought to recall the award, alleging fraud by the claimants regarding the insurance policy. The insurance company claimed they initially believed the policy due to a software error and only discovered the alleged fraud later.",
-        petition: "Whether the Tribunal had jurisdiction to recall the award under Section 151 C.P.C. based on the insurance company's claim of fraud. Whether the claimants actually committed fraud, considering the insurance company's admission of coverage.",
-        legalissues: "Can an award be recalled based on alleged fraud when the insurer initially admitted coverage and then later claimed a software error led to a belated discovery of fraud?",
-        keylegalques: "Whether the Tribunal had jurisdiction to recall the award under Section 151 C.P.C. based on the insurance company's claim of fraud.",
-        plaintiffarguments: "The claimants committed fraud by misrepresenting the insurance policy details. The Tribunal has inherent power under Section 151 C.P.C. to recall awards obtained through fraud. The software error prevented them from detecting the fraud earlier.",
-        defendantarguments: "No fraud was committed, and the insurance company admitted coverage in their counter statement. The insurance company's claim of software error and belated discovery of fraud is a flimsy excuse. The insurance company should have verified the policy details before filing their counter statement.",
-        courtsreasoning: "The court analyzed the evidence presented, including the claimants' documents, witnesses, and the insurance company's affidavit. The court found no evidence of fraud committed by the claimants. The insurance company's claim of software error was not credible, as there were established procedures for verifying insurance coverage. The court relied on previous judgments emphasizing the responsibility of insurance companies to verify policy details and avoid 'deny everything and await the award syndrome.' The court recognized the hardship faced by claimants who have to wait for compensation while insurers delay proceedings.",
-        decision: "The court dismissed the revision petition, upholding the Tribunal's award. The insurance company was ordered to deposit the entire award amount within four weeks.",
-        conclusion: "The Madras High Court found that the insurance company's claim of fraud was unfounded and based on a belated discovery that should have been investigated earlier. The court emphasized the importance of insurers verifying policy details and acting responsibly in motor accident claims.",
-        casesummary: "The insurance company sought to recall an award granted to claimants after four years, alleging fraud. However, the court dismissed the claim, finding no evidence of fraud and concluding that the insurance company's belated discovery was not credible. The court stressed the importance of insurers verifying policy details and acting in good faith."
-
-
-    },
+        "id": 5,
+        "title": "Reliance Industries Ltd. v. Securities and Exchange Board of India",
+        "description": "This case dealt with insider trading allegations and the powers of SEBI to investigate and penalize companies for market manipulation.",
+        "date": "2020",
+        "caseno": "Civil Appeal No. 3309 of 2019",
+        "casename": "Reliance Industries Ltd. v. Securities and Exchange Board of India",
+        "court": "Supreme Court of India",
+        "casestatus": "Disposed off",
+        "judge": "Justice Rohinton Fali Nariman and Justice S. Ravindra Bhat",
+        "sect": "Securities and Exchange Board of India Act, 1992",
+        "facts": "SEBI accused Reliance Industries of insider trading and market manipulation in the shares of Reliance Petroleum Ltd. in 2007.",
+        "petition": "Reliance Industries challenged SEBI's jurisdiction and the validity of its investigation procedures.",
+        "legalissues": "Whether SEBI has the power to investigate and penalize companies for alleged market manipulation occurring over a decade ago.",
+        "keylegalques": "Does the passage of time affect SEBI's authority to investigate and penalize market manipulation?",
+        "plaintiffarguments": "Reliance argued that SEBI's investigation was time-barred and violated principles of natural justice.",
+        "defendantarguments": "SEBI contended that market integrity is paramount and there is no statutory time limit for such investigations.",
+        "courtsreasoning": "The Court emphasized the importance of market integrity while also considering the rights of the investigated parties.",
+        "decision": "The Supreme Court upheld SEBI's investigative powers but directed a fresh hearing on the merits of the case.",
+        "conclusion": "This case reinforced SEBI's authority in regulating markets while also emphasizing the need for timely investigations.",
+        "casesummary": "The ruling balanced the regulator's powers with the rights of companies, setting a precedent for future market manipulation cases."
+      },
+      {
+        "id": 6,
+        "title": "Tata Consultancy Services Ltd. v. Cyrus Investments Pvt. Ltd.",
+        "description": "This case involved a high-profile corporate governance dispute within one of India's largest conglomerates.",
+        "date": "2021",
+        "caseno": "Civil Appeal Nos. 440-441 of 2020",
+        "casename": "Tata Consultancy Services Ltd. v. Cyrus Investments Pvt. Ltd.",
+        "court": "Supreme Court of India",
+        "casestatus": "Disposed off",
+        "judge": "Chief Justice S.A. Bobde, Justice A.S. Bopanna and Justice V. Ramasubramanian",
+        "sect": "Companies Act, 2013",
+        "facts": "The case arose from the removal of Cyrus Mistry as the Chairman of Tata Sons, leading to allegations of oppression and mismanagement.",
+        "petition": "Cyrus Mistry's firms petitioned for relief against alleged oppression and mismanagement in Tata Group companies.",
+        "legalissues": "Whether the removal of Cyrus Mistry and subsequent actions by Tata Group constituted oppression and mismanagement.",
+        "keylegalques": "What is the scope of judicial intervention in the internal management decisions of companies?",
+        "plaintiffarguments": "Mistry's firms argued that his removal was illegal and violated principles of corporate governance.",
+        "defendantarguments": "Tata Group contended that the removal was within their rights and in the best interests of the company.",
+        "courtsreasoning": "The Court examined the balance between protecting minority shareholders and respecting corporate autonomy.",
+        "decision": "The Supreme Court ruled in favor of Tata Group, setting aside the NCLAT order that had reinstated Mistry.",
+        "conclusion": "This case set a significant precedent in corporate governance and the rights of majority shareholders.",
+        "casesummary": "The ruling emphasized the limited scope of judicial intervention in corporate affairs, affirming the rights of majority shareholders in decision-making."
+      },
+      {
+        "id": 7,
+        "title": "Amazon.com NV Investment Holdings LLC v. Future Retail Ltd. and Ors.",
+        "description": "This case involved an international commercial arbitration dispute over a breach of contract in a high-stakes corporate deal.",
+        "date": "2021",
+        "caseno": "Civil Appeal Nos. 4492-4497 of 2021",
+        "casename": "Amazon.com NV Investment Holdings LLC v. Future Retail Ltd. and Ors.",
+        "court": "Supreme Court of India",
+        "casestatus": "Disposed off",
+        "judge": "Justice R.F. Nariman and Justice B.R. Gavai",
+        "sect": "Arbitration and Conciliation Act, 1996",
+        "facts": "Amazon sought to enforce an arbitration award preventing Future Group from selling its retail assets to Reliance Industries.",
+        "petition": "Amazon petitioned to enforce the emergency arbitrator's award under Section 17(2) of the Arbitration and Conciliation Act.",
+        "legalissues": "Whether an emergency arbitrator's award is enforceable under Indian law.",
+        "keylegalques": "Is an emergency arbitrator's award equivalent to an order of a court for the purpose of enforcement?",
+        "plaintiffarguments": "Amazon argued that the emergency arbitrator's award was binding and enforceable under Indian law.",
+        "defendantarguments": "Future Group contended that Indian law does not recognize emergency arbitrators or their awards.",
+        "courtsreasoning": "The Court examined the legislative intent behind the Arbitration Act and international commercial practices.",
+        "decision": "The Supreme Court held that emergency arbitrator's awards are enforceable under Indian law.",
+        "conclusion": "This case significantly impacted the landscape of international commercial arbitration in India.",
+        "casesummary": "The ruling strengthened the enforceability of emergency arbitration awards in India, aligning with global arbitration practices."
+      },
+      {
+        "id": 8,
+        "title": "Vodafone International Holdings BV v. Union of India",
+        "description": "This landmark case dealt with cross-border taxation and the interpretation of tax laws in international transactions.",
+        "date": "2012",
+        "caseno": "Civil Appeal No. 733 of 2012",
+        "casename": "Vodafone International Holdings BV v. Union of India & Anr.",
+        "court": "Supreme Court of India",
+        "casestatus": "Disposed off",
+        "judge": "Chief Justice S.H. Kapadia, Justice K.S. Radhakrishnan and Justice Swatanter Kumar",
+        "sect": "Income Tax Act, 1961",
+        "facts": "Vodafone acquired a controlling stake in Hutchison Essar Limited through an offshore transaction. The Indian tax authorities demanded capital gains tax on this transaction.",
+        "petition": "Vodafone challenged the tax demand, arguing that Indian tax authorities had no jurisdiction over an offshore transaction.",
+        "legalissues": "Whether India has the right to tax capital gains arising from the transfer of capital assets outside India between two non-resident entities.",
+        "keylegalques": "Can the principle of 'look through' be applied to tax offshore transactions with an indirect transfer of Indian assets?",
+        "plaintiffarguments": "Vodafone argued that the transaction took place outside India between two non-resident entities and was not taxable in India.",
+        "defendantarguments": "The tax authorities contended that the transaction's underlying asset was in India, making it taxable under Indian law.",
+        "courtsreasoning": "The Court examined the principles of corporate structure, tax avoidance, and the territorial nexus required for taxation.",
+        "decision": "The Supreme Court ruled in favor of Vodafone, holding that the offshore transaction was not taxable in India.",
+        "conclusion": "This case had significant implications for foreign investment and cross-border transactions in India.",
+        "casesummary": "The ruling clarified the limits of India's tax jurisdiction in international transactions, influencing subsequent legislation and tax policies."
+      },
+      {
+        "id": 9,
+        "title": "Carlsberg Breweries A/S v. Som Distilleries and Breweries Ltd.",
+        "description": "This case addressed issues of trademark infringement and passing off in the beverages industry.",
+        "date": "2019",
+        "caseno": "Commercial Appeal No. 21 of 2019",
+        "casename": "Carlsberg Breweries A/S v. Som Distilleries and Breweries Ltd.",
+        "court": "Delhi High Court",
+        "casestatus": "Disposed off",
+        "judge": "Justice S. Ravindra Bhat and Justice Prateek Jalan",
+        "sect": "Trade Marks Act, 1999",
+        "facts": "Carlsberg alleged that Som Distilleries' use of the mark 'Hunters' for beer infringed upon their trademark 'Tuborg'.",
+        "petition": "Carlsberg sought an injunction against Som Distilleries to prevent the use of the 'Hunters' mark and bottle design.",
+        "legalissues": "Whether the use of a similar color scheme and bottle design constitutes trademark infringement and passing off.",
+        "keylegalques": "What is the extent of protection afforded to trade dress and packaging in the beverages industry?",
+        "plaintiffarguments": "Carlsberg argued that Som's product was deceptively similar and would cause confusion among consumers.",
+        "defendantarguments": "Som Distilleries contended that their product was distinct and there was no likelihood of confusion.",
+        "courtsreasoning": "The Court considered the overall impression of the products and the likelihood of confusion among average consumers.",
+        "decision": "The Court granted a partial injunction, restraining Som from using certain aspects of their packaging but allowing the use of the 'Hunters' name.",
+        "conclusion": "This case highlighted the complexities in determining trademark infringement in product packaging and design.",
+        "casesummary": "The ruling provided guidance on balancing trademark protection with fair competition in the beverages market."
+      },
+      {
+        "id": 10,
+        "title": "Monsanto Holdings Pvt. Ltd. v. Competition Commission of India",
+        "description": "This case dealt with the intersection of intellectual property rights and competition law in the agricultural biotechnology sector.",
+        "date": "2020",
+        "caseno": "Civil Appeal No. 7779 of 2020",
+        "casename": "Monsanto Holdings Pvt. Ltd. v. Competition Commission of India & Ors.",
+        "court": "Supreme Court of India",
+        "casestatus": "Disposed off",
+        "judge": "Justice Rohinton Fali Nariman and Justice Navin Sinha",
+        "sect": "Competition Act, 2002",
+        "facts": "The CCI initiated an investigation into Monsanto's licensing practices for Bt cotton technology, alleging abuse of dominant position.",
+        "petition": "Monsanto challenged the CCI's jurisdiction to investigate matters related to patent licensing.",
+        "legalissues": "Whether the Competition Commission has the authority to investigate alleged anti-competitive practices in patent licensing agreements.",
+        "keylegalques": "How to balance the rights of patent holders with the need to prevent anti-competitive practices?",
+        "plaintiffarguments": "Monsanto argued that patent-related issues fall under the Patents Act and are outside the CCI's jurisdiction.",
+        "defendantarguments": "The CCI contended that it has the power to investigate any anti-competitive practice, including those involving intellectual property rights.",
+        "courtsreasoning": "The Court examined the interplay between competition law and intellectual property rights in India.",
+        "decision": "The Supreme Court affirmed the CCI's jurisdiction to investigate anti-competitive practices in patent licensing.",
+        "conclusion": "This case set a precedent for the application of competition law to intellectual property matters in India.",
+        "casesummary": "The ruling established that competition law can apply to the exercise of patent rights, potentially impacting licensing practices in various industries."
+      },
+      {
+        "id": 11,
+        "title": "Cox and Kings Ltd. v. Reserve Bank of India",
+        "description": "This case addressed the regulatory powers of the RBI in the context of debt resolution and insolvency proceedings.",
+        "date": "2020",
+        "caseno": "Writ Petition (Civil) No. 8868 of 2020",
+        "casename": "Cox and Kings Ltd. v. Reserve Bank of India & Ors.",
+        "court": "Bombay High Court",
+        "casestatus": "Disposed off",
+        "judge": "Justice K.K. Tated and Justice N.R. Borkar",
+        "sect": "Reserve Bank of India Act, 1934 and Insolvency and Bankruptcy Code, 2016",
+        "facts": "Cox and Kings faced financial difficulties and sought to challenge RBI's decision to initiate insolvency proceedings against it.",
+        "petition": "The company petitioned against RBI's direction to banks to initiate insolvency proceedings, claiming it violated natural justice.",
+        "legalissues": "Whether RBI has the power to direct banks to initiate insolvency proceedings against specific companies.",
+        "keylegalques": "What is the extent of RBI's regulatory powers in matters of corporate debt resolution?",
+        "plaintiffarguments": "Cox and Kings argued that RBI's direction was arbitrary and beyond its statutory powers.",
+        "defendantarguments": "RBI contended that its actions were within its regulatory mandate to maintain financial stability.",
+        "courtsreasoning": "The Court examined the scope of RBI's powers under banking regulations and their interaction with insolvency laws.",
+        "decision": "The Court upheld RBI's authority to issue such directions to banks in the interest of the banking system and economy.",
+        "conclusion": "This case affirmed the broad regulatory powers of RBI in matters of financial stability and corporate debt resolution.",
+        "casesummary": "The ruling highlighted the significant role of RBI in addressing corporate financial distress and its impact on the banking sector."
+      }    
     // Add more card data objects as needed
 ];
 
@@ -229,7 +283,63 @@ const relatedLawsData = [
         description: "An Act to consolidate and amend the law relating to companies.",
         relevantSections: "Sections 241, 242, 245",
         keyProvisions: "Oppression and Mismanagement, Class Action Suits"
-    }
+    },
+        {
+          "id": 5,
+          "title": "Insolvency and Bankruptcy Code, 2016",
+          "description": "A comprehensive law that consolidates and amends the laws relating to reorganization and insolvency resolution of corporate persons, partnership firms and individuals.",
+          "relevantSections": "Sections 7, 9, 10, 14, 31",
+          "keyProvisions": "Corporate Insolvency Resolution Process, Moratorium, Resolution Plan Approval"
+        },
+        {
+          "id": 6,
+          "title": "Competition Act, 2002",
+          "description": "An Act to prevent practices having adverse effect on competition, to promote and sustain competition in markets, to protect the interests of consumers and to ensure freedom of trade.",
+          "relevantSections": "Sections 3, 4, 5, 6",
+          "keyProvisions": "Anti-Competitive Agreements, Abuse of Dominant Position, Regulation of Combinations"
+        },
+        {
+          "id": 7,
+          "title": "Goods and Services Tax Act, 2017",
+          "description": "A comprehensive, multi-stage, destination-based tax that is levied on every value addition in the supply of goods and services.",
+          "relevantSections": "Sections 9, 10, 16, 17, 54",
+          "keyProvisions": "Levy and Collection of Tax, Composition Levy, Input Tax Credit, Refunds"
+        },
+        {
+          "id": 8,
+          "title": "Foreign Exchange Management Act, 1999",
+          "description": "An Act to consolidate and amend the law relating to foreign exchange with the objective of facilitating external trade and payments.",
+          "relevantSections": "Sections 3, 4, 6, 7",
+          "keyProvisions": "Dealing in Foreign Exchange, Current Account Transactions, Capital Account Transactions"
+        },
+        {
+          "id": 9,
+          "title": "Arbitration and Conciliation Act, 1996",
+          "description": "An Act to consolidate and amend the law relating to domestic arbitration, international commercial arbitration and enforcement of foreign arbitral awards.",
+          "relevantSections": "Sections 7, 11, 34, 48",
+          "keyProvisions": "Arbitration Agreement, Appointment of Arbitrators, Setting Aside of Arbitral Award, Enforcement of Foreign Awards"
+        },
+        {
+          "id": 10,
+          "title": "Consumer Protection Act, 2019",
+          "description": "An Act to provide for protection of the interests of consumers and for the said purpose, to establish authorities for timely and effective administration and settlement of consumers' disputes.",
+          "relevantSections": "Sections 2(6), 35, 38, 58",
+          "keyProvisions": "Definition of Consumer, Complaints, Mediation, Product Liability"
+        },
+        {
+          "id": 11,
+          "title": "Negotiable Instruments Act, 1881",
+          "description": "An Act to define and amend the law relating to promissory notes, bills of exchange and cheques.",
+          "relevantSections": "Sections 6, 13, 138",
+          "keyProvisions": "Definition of Promissory Note, Negotiation, Dishonour of Cheque"
+        },
+        {
+          "id": 12,
+          "title": "Real Estate (Regulation and Development) Act, 2016",
+          "description": "An Act to establish the Real Estate Regulatory Authority for regulation and promotion of the real estate sector and to ensure sale of plot, apartment or building in an efficient and transparent manner.",
+          "relevantSections": "Sections 3, 11, 13, 18",
+          "keyProvisions": "Registration of Real Estate Projects, Functions of Promoter, Return of Amount and Compensation"
+        }
 ];
 
 function SearchResults() {
@@ -252,10 +362,51 @@ function SearchResults() {
         }
     }, [location]);
 
+    const [visibleCases, setVisibleCases] = useState(4);
+    const [visibleLaws, setVisibleLaws] = useState(4);
+
+    const loadMoreCases = () => {
+        setVisibleCases(prevVisible => prevVisible + 4);
+    };
+
+    const loadMoreLaws = () => {
+        setVisibleLaws(prevVisible => prevVisible + 4);
+    };
     useEffect(() => {
         setSortedCardData(cardData);
     }, []);
 
+    const renderContent = () => {
+        let content;
+        switch (activeTab) {
+            case "cases":
+                content = sortedCardData.slice(0, visibleCases).map(card => (
+                    <Card key={card.id} {...card} />
+                ));
+                break;
+            case "laws":
+                content = relatedLawsData.slice(0, visibleLaws).map(law => (
+                    <LawCard key={law.id} {...law} />
+                ));
+                break;
+            default:
+                content = [
+                    ...sortedCardData.slice(0, visibleCases).map(card => (
+                        <Card key={`case-${card.id}`} {...card} />
+                    )),
+                    ...relatedLawsData.slice(0, visibleLaws).map(law => (
+                        <LawCard key={`law-${law.id}`} {...law} />
+                    ))
+                ];
+        }
+        return content;
+    };
+    
+    const tabData = [
+        { id: "all", label: "All", icon: Search },
+        { id: "cases", label: "Cases", icon: BookOpen },
+        { id: "laws", label: "Laws", icon: Scale },
+    ];
     useEffect(() => {
         sortCards(selectedOption);
     }, [selectedOption]);
@@ -424,108 +575,101 @@ function SearchResults() {
                 </div>
                 
                 {/* Results with Tabs */}
-                <div className="bg-white rounded-lg shadow-md">
-                <div className="border-b border-gray-200 overflow-x-auto">
-                        <nav className="flex">
-                            {["all", "cases", "laws"].map((tab) => (
+                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                    {/* Top tabs */}
+                    <div className="bg-gray-50 p-4">
+                        <nav className="flex space-x-2">
+                            {tabData.map((tab) => (
                                 <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`px-4 md:px-6 py-3 font-medium text-xs md:text-sm flex items-center whitespace-nowrap ${
-                                        activeTab === tab
-                                            ? "border-b-2 border-blue-500 text-[#302A2A]"
-                                            : "text-gray-500 hover:text-[#302A2A]"
-                                    }`}
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`
+                                        flex items-center px-4 py-2 rounded-lg font-medium text-sm
+                                        transition-all duration-300 ease-in-out
+                                        ${activeTab === tab.id
+                                            ? "bg-white text-blue-600 shadow-md"
+                                            : "text-gray-600 hover:bg-gray-200"
+                                        }
+                                    `}
                                 >
-                                    {tab === "cases" && <BookOpen size={16} className="mr-2" />}
-                                    {tab === "laws" && <Scale size={16} className="mr-2" />}
-                                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                                    <tab.icon size={18} className={`mr-2 ${activeTab === tab.id ? "text-blue-600" : "text-gray-400"}`} />
+                                    {tab.label}
                                 </button>
                             ))}
                         </nav>
                     </div>
+
+                    {/* Content area */}
                     <div className="p-4 md:p-6">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-6">
-                    <h2 className="text-lg md:text-xl font-bold text-[#302A2A] mb-2 md:mb-0">Related {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
-                            <div className="flex items-center space-x-2 md:space-x-4">
-                                <button
-                                    onClick={() => setViewMode("list")}
-                                    className={`p-2 rounded transition-colors ${viewMode === "list" ? "bg-blue-100 text-[#302A2A]" : "text-gray-400 hover:bg-gray-100"}`}
-                                >
-                                    <List size={20} />
-                                </button>
-                                <button
-                                    onClick={() => setViewMode("grid")}
-                                    className={`p-2 rounded transition-colors ${viewMode === "grid" ? "bg-blue-100 text-[#302A2A]" : "text-gray-400 hover:bg-gray-100"}`}
-                                >
-                                    <Grid size={20} />
-                                </button>
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl font-bold text-gray-800">
+                                {tabData.find(tab => tab.id === activeTab)?.label} Results
+                            </h2>
+                            <div className="flex items-center space-x-4">
+                                {/* View mode toggle */}
+                                <div className="flex bg-gray-100 rounded-lg p-1">
+                                    <button
+                                        onClick={() => setViewMode("list")}
+                                        className={`p-1 rounded ${viewMode === "list" ? "bg-white shadow-sm" : "text-gray-500"}`}
+                                        aria-label="List view"
+                                    >
+                                        <List size={20} />
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode("grid")}
+                                        className={`p-1 rounded ${viewMode === "grid" ? "bg-white shadow-sm" : "text-gray-500"}`}
+                                        aria-label="Grid view"
+                                    >
+                                        <Grid size={20} />
+                                    </button>
+                                </div>
+
+                                {/* Sort dropdown */}
                                 <div className="relative">
                                     <select
                                         value={selectedOption}
                                         onChange={handleChange}
-                                        className="appearance-none bg-gray-100 border border-gray-300 text-[#302A2A] py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500 text-sm"
+                                        className="appearance-none bg-gray-100 border border-gray-300 text-gray-700 py-2 pl-3 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-blue-500 text-sm"
                                     >
                                         <option value="" disabled hidden>Sort</option>
                                         <option value="Recent">Recent</option>
                                         <option value="Most popular">Most popular</option>
                                         <option value="Alphabetical">Alphabetical</option>
                                     </select>
-                                    <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                        <ChevronDown size={16} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        {/* Content */}
                         <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" : "space-y-4 md:space-y-6"}>
-                        {activeTab === "laws" 
-  ? relatedLawsData.map(law => (
-      <LawCard
-        key={law.id}
-        title={law.title}
-        description={law.description}
-        relevantSections={law.relevantSections}
-        keyProvisions={law.keyProvisions}
-      />
-    ))
-                                : sortedCardData.slice(0, visibleCards).map(card => (
-                                    <Card
-                                        key={card.id}
-                                        title={card.title}
-                                        date={card.date}
-                                        description={card.description}
-                                        link={card.link}
-                                        caseno={card.caseno}
-                                        casename={card.casename}
-                                        court={card.court}
-                                        casestatus={card.casestatus}
-                                        judge={card.judge}
-                                        sect={card.sect}
-                                        facts={card.facts}
-                                        petition={card.petition}
-                                        legalissues={card.legalissues}
-                                        keylegalques={card.keylegalques}
-                                        plaintiffarguments={card.plaintiffarguments}
-                                        defendantarguments={card.defendantarguments}
-                                        courtsreasoning={card.courtsreasoning}
-                                        decision={card.decision}
-                                        conclusion={card.conclusion}
-                                        casesummary={card.casesummary}
-                                    />
-                                ))
-                            }
-                        </div>
-                        {visibleCards < sortedCardData.length && activeTab !== "laws" && (
-                            <div className="text-center mt-6">
-                                <button
-                                    onClick={loadMoreCards}
-                                    className="bg-[#302A2A] hover:bg-gray-800 text-white font-bold py-2 px-4 rounded"
-                                >
-                                    Load More
-                                </button>
-                            </div>
+                        {renderContent()}
+                    </div>
+
+
+                        {/* Load More button */}
+                        <div className="text-center mt-6 space-y-4">
+                        {(activeTab === "all" || activeTab === "cases") && visibleCases < sortedCardData.length && (
+                            <button
+                                onClick={loadMoreCases}
+                                className="bg-[#302A2A] hover:bg-gray-800 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Load More Cases
+                            </button>
+                        )}
+                        {(activeTab === "all" || activeTab === "laws") && visibleLaws < relatedLawsData.length && (
+                            <button
+                                onClick={loadMoreLaws}
+                                className="bg-[#302A2A] hover:bg-gray-800 text-white font-bold py-2 px-4 rounded ml-4"
+                            >
+                                Load More Laws
+                            </button>
                         )}
                     </div>
                 </div>
+            </div>
 
                 {/* New Feature: Related Searches */}
                 <div className="mt-8 bg-white rounded-lg shadow-md p-4 md:p-6">

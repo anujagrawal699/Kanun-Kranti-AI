@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Settings, Home, Mail } from 'lucide-react';
-import { LanguagesIcon } from 'lucide-react';
+import { Settings, Home, Mail, Languages } from 'lucide-react';
 
-const DropdownMenu = () => {
+const DropdownMenu = ({ closeMenu, navigate }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate();
     const dropdownRef = useRef(null);
 
-    const toggleDropdown = () => setIsOpen(!isOpen);
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -22,6 +22,17 @@ const DropdownMenu = () => {
         };
     }, []);
 
+    const handleNavigation = (path) => {
+        navigate(path);
+        setIsOpen(false);
+        closeMenu();
+    };
+
+    const handleButtonClick = (action) => (e) => {
+        e.stopPropagation();
+        action();
+    };
+
     return (
         <div className="relative" ref={dropdownRef}>
             <button
@@ -31,30 +42,32 @@ const DropdownMenu = () => {
                 <Settings size={20} />
             </button>
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-700">
+                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-700 z-50">
                     <div className="py-1">
-                        
-                        <a
-                            href="mailto:anujagrawal380@gmail.com"
-                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        <button
+                            onClick={handleButtonClick(() => {
+                                window.location.href = 'mailto:anujagrawal380@gmail.com';
+                                closeMenu();
+                            })}
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 w-full text-left cursor-pointer transition-colors duration-150"
                         >
                             <Mail size={18} className="mr-3" />
                             Contact Us
-                        </a>
-                        <a
-                            href="/home"
-                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        </button>
+                        <button
+                            onClick={handleButtonClick(() => handleNavigation('/languages'))}
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 w-full text-left cursor-pointer transition-colors duration-150"
                         >
-                            <LanguagesIcon size={18} className="mr-3" />
+                            <Languages size={18} className="mr-3" />
                             Languages
-                        </a>
-                        <a
-                            href="/home"
-                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        </button>
+                        <button
+                            onClick={handleButtonClick(() => handleNavigation('/'))}
+                            className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 w-full text-left cursor-pointer transition-colors duration-150"
                         >
                             <Home size={18} className="mr-3" />
                             Home
-                        </a>
+                        </button>
                     </div>
                 </div>
             )}
