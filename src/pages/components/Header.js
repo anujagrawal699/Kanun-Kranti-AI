@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Gavel } from 'lucide-react';
 
 const welcomePhrases = [
   { text: "Welcome to Kanun Kranti AI", lang: "English" },
@@ -12,7 +13,6 @@ const welcomePhrases = [
   { text: "ಕಾನೂನ್ ಕ್ರಾಂತಿಗೆ ನಿಮ್ಮ ಸ್ವಾಗತ", lang: "Kannada" },
   { text: "കാനൂൺ ക്രാന്തിയിലേക്ക് സ്വാഗതം", lang: "Malayalam" },
   { text: "கனூன் கிராந்திக்கு உங்களை வரவேற்கிறோம்", lang: "Tamil" },
-  { text: "ಕानून क्रांती मद्धे तुमचं स्वागत आहे", lang: "Konkani" },
   { text: "कानून क्रांति में आपका स्वागत है", lang: "Nepali" },
   { text: "କାନୁନ୍ କ୍ରାନ୍ତିକୁ ଆପଣଙ୍କୁ ସ୍ଵାଗତ", lang: "Odia" },
   { text: "कानून क्रांति में आपले स्वागत आहे", lang: "Sanskrit" }
@@ -29,7 +29,6 @@ const subtitles = [
   { text: "ನಮ್ಮ ಜನರೇಟಿವ್ AI ಯೊಂದಿಗೆ ವಾಣಿಜ್ಯ ನ್ಯಾಯಾಲಯದ ಪ್ರಕರಣಗಳ ಬುದ್ಧಿವಂತ ಹುಡುಕಾಟವನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ.", lang: "Kannada" },
   { text: "ഞങ്ങളുടെ ജനറേറ്റീവ് AI ഉപയോഗിച്ച് വാണിജ്യ കോടതി കേസുകളുടെ ബുദ്ധിപരമായ തിരയൽ അൺലോക്ക് ചെയ്യുക.", lang: "Malayalam" },
   { text: "எங்கள் உருவாக்க AI மூலம் வணிக நீதிமன்ற வழக்குகளின் அறிவார்ந்த தேடலை திறக்கவும்.", lang: "Tamil" },
-  { text: "आमच्या जनरेटिव AI वापरून वाणिज्यिक न्यायालयाच्या केसांचा बुद्धिमान शोध अनलॉक करा.", lang: "Konkani" },
   { text: "हाम्रो जेनेरेटिभ AI सँग वाणिज्य अदालतका मुद्दाहरूको बुद्धिमान खोजलाई अनलक गर्नुहोस्।", lang: "Nepali" },
   { text: "ଆମର ଜେନେରେଟିଭ୍ AI ସହିତ ବାଣିଜ୍ୟିକ କୋର୍ଟ ମାମଲାଗୁଡ଼ିକର ବୁଦ୍ଧିମାନ ସନ୍ଧାନକୁ ଅନଲକ୍ କରନ୍ତୁ |", lang: "Odia" },
   { text: "अस्माकं जनरेटिव AI साहाय्येन वाणिज्यिकन्यायालयप्रकरणानां बुद्धिमत्तायुक्तं अन्वेषणं विमुञ्चतु।", lang: "Sanskrit" }
@@ -43,7 +42,7 @@ function Header() {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % welcomePhrases.length);
       setCurrentSubIndex((prevIndex) => (prevIndex + 1) % subtitles.length);
-    }, 4000); 
+    }, 5000); 
 
     return () => clearInterval(interval);
   }, []);
@@ -53,8 +52,8 @@ function Header() {
   const isEven = currentIndex % 2 === 0;
 
   return (
-    <div className="w-full flex justify-center py-8 overflow-hidden">
-      <div className="flex flex-col items-center justify-center space-y-4">
+    <div className="w-full flex flex-col items-center py-3 overflow-hidden">
+      <div className="flex flex-col items-center justify-center space-y-4 mb-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -82,6 +81,30 @@ function Header() {
           </motion.div>
         </AnimatePresence>
       </div>
+      
+      {/* New section for the query heading with animated gavel icon */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut', delay: 0.5 }}
+        className="w-full max-w-md text-center flex items-center justify-center space-x-2"
+      >
+        <h2 className="text-xl font-semibold">
+          Get answers to all your commercial court queries below
+        </h2>
+        <motion.div
+          initial={{ rotate: -45 }}
+          animate={{ rotate: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+            delay: 1
+          }}
+        >
+          <Gavel className="w-10 h-10" />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

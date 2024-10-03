@@ -12,6 +12,7 @@ const Searchbar = () => {
     const [isLoading, setIsLoading] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const textareaRef = useRef(null);
     const { theme } = useTheme();
 
     const defaultPrompts = [
@@ -35,16 +36,24 @@ const Searchbar = () => {
     };
 
     useEffect(() => {
-        document.addEventListener('click', closeDropdown);
-        return () => document.removeEventListener('click', closeDropdown);
-    }, []);
+        adjustTextareaHeight();
+    }, [inputValue]);
 
-    // Handle search form submission
-    
+    const adjustTextareaHeight = () => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+    };
 
-    // Handle Enter key in input
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             handleSearchSubmit(e);
         }
     };
@@ -90,7 +99,6 @@ const Searchbar = () => {
         e.preventDefault();
         if (inputValue.trim()) {
             const apiResponse = await callGeminiApi(inputValue.trim());
-            console.log('API Response before navigation:', apiResponse); // Log before navigation
             navigate('/search-results', { 
                 state: { 
                     searchQuery: inputValue.trim(),
@@ -101,25 +109,26 @@ const Searchbar = () => {
     };
 
     return (
-        <div className="max-w-2xl w-full px-6 relative z-10">
+        <div className="w-full px-4 sm:px-6 relative z-10">
             <form onSubmit={handleSearchSubmit} className="relative">
                 <textarea
+                    ref={textareaRef}
                     name="input"
-                    placeholder="Enter about your research query in detail"
+                    placeholder="Enter your research query in detail"
                     spellCheck="false"
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
-                    className={`w-full min-h-12 pl-4 pr-10 pt-3 pb-1 text-sm placeholder:text-gray-500 border ${
+                    className={`w-full min-h-[48px] pl-4 pr-12 py-3 text-sm placeholder:text-gray-500 border ${
                         theme === 'dark' ? 'border-[#302A2A] bg-[#060202] text-white' : 'border-gray-300 bg-gray-200 text-black'
-                    } rounded-full resize-none ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
+                    } rounded-lg resize-none ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
                     rows="1"
                     tabIndex="0"
                 />
                 <button
                     type="submit"
                     aria-label="Send message"
-                    className={`inline-flex items-center justify-center h-10 w-10 absolute right-2 top-1/2 transform -translate-y-1/2 rounded-md text-sm font-medium transition-colors ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:bg-accent hover:text-accent-foreground ${
+                    className={`absolute right-2 bottom-3 p-2 rounded-md text-sm font-medium transition-colors ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:bg-accent hover:text-accent-foreground ${
                         theme === 'dark' ? 'text-gray-300' : 'text-[#302A2A]'
                     }`}
                 >

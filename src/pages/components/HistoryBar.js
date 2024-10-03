@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { useTheme } from './ThemeContext'; // Make sure this path is correct
+import React, { useState, useEffect, useRef } from 'react';
+import { useTheme } from './ThemeContext';
 import ministryOfLaw from '../../assets/ministry_of_law.jpeg';
 import { Menu, Search } from 'lucide-react';
 
 const HistoryBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { theme } = useTheme();
+    const historyBarRef = useRef(null);
 
+    const toggleButtonRef = useRef(null);
     const dummyData = {
         today: [
             { id: 458, title: 'Case 458' },
@@ -25,6 +27,23 @@ const HistoryBar = () => {
         ],
     };
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (historyBarRef.current && 
+                !historyBarRef.current.contains(event.target) &&
+                toggleButtonRef.current && 
+                !toggleButtonRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     const getThemeClasses = () => {
         return theme === 'dark'
             ? 'bg-gray-700 text-white'
@@ -37,24 +56,33 @@ const HistoryBar = () => {
             : 'hover:bg-gray-800';
     };
 
+    const toggleHistoryBar = (event) => {
+        event.stopPropagation();
+        setIsOpen(!isOpen);
+    };
+
     return (
         <>
             {/* Mobile dropdown toggle */}
             <button
-                className={`md:hidden fixed top-12 left-2 z-50 p-2 rounded-md ${getThemeClasses()}`}
-                onClick={() => setIsOpen(!isOpen)}
+                ref={toggleButtonRef}
+                className={`md:hidden fixed top-3 left-2 z-50 p-2 rounded-md ${getThemeClasses()}`}
+                onClick={toggleHistoryBar}
             >
                 <Menu size={24} />
             </button>
             {/* HistoryBar content */}
-            <div className={`
-                ${getThemeClasses()}
-                fixed top-0 left-0 h-screen w-64
-                transform transition-transform duration-300 ease-in-out
-                overflow-y-auto
-                md:translate-x-0
-                ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-            `}>
+            <div 
+                ref={historyBarRef}
+                className={`
+                    ${getThemeClasses()}
+                    fixed top-0 left-0 h-screen w-64
+                    transform transition-transform duration-300 ease-in-out
+                    overflow-y-auto
+                    md:translate-x-0 z-40
+                    ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+                `}
+            >
                 <div className="p-2 mt-16 md:mt-4">
                     <img
                         src={ministryOfLaw}
@@ -74,8 +102,8 @@ const HistoryBar = () => {
                                 <h3 className="text-xs font-semibold mb-1 text-gray-500 uppercase">{section}</h3>
                                 <ul className="space-y-1">
                                     {items.map(item => (
-                                        <li 
-                                            key={item.id} 
+                                        <li
+                                            key={item.id}
                                             className={`text-xs 'text-gray-300' ${getHoverClasses()} px-2 py-1 rounded transition-colors duration-150 ease-in-out`}
                                         >
                                             {item.title}

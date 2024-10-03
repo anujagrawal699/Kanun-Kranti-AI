@@ -36,25 +36,26 @@ const Navbar = ({onLogout}) => {
     }, [menuOpen, closeMenu]);
 
     return (
-        <header className="w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur bg-background/80 dark:bg-gray-800/80">
+        <header className="w-full p-1 md:p-2 flex justify-between items-center z-10 bg-background/80 dark:bg-gray-900">
             <div className="flex items-center space-x-3">
-                <a href="/">
+               
+            </div>
+            <div className="flex items-center space-x-3 relative" ref={menuRef}>
+            <a href="/">
                     {/* Logout button */}
                     <button
                         onClick={onLogout}
-                        className="p-1.5 flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
+                        className="p-1.5 flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
                         aria-label="Log out"
                     >
                         <LogOut size={24} />
                         <span className="sr-only">Log out</span>
                     </button>
                 </a>
-            </div>
-            <div className="flex items-center space-x-3 relative" ref={menuRef}>
                 {/* Theme toggle button */}
                 <button
                     onClick={handleThemeChange}
-                    className="p-1.5 flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
+                    className="p-1.5 flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
                     aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                 >
                     {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
