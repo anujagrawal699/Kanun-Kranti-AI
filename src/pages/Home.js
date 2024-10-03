@@ -11,7 +11,7 @@ function Home() {
     return (
         <div className={`min-h-screen flex flex-col ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
             {/* Navbar */}
-            <div className="z-35 sticky top-0 w-full">
+            <div className="z-35 top-0 w-full">
                 <Navbar />
             </div>
             

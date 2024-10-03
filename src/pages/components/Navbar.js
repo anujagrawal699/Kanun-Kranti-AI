@@ -36,7 +36,7 @@ const Navbar = ({onLogout}) => {
     }, [menuOpen, closeMenu]);
 
     return (
-        <header className="w-full p-1 md:p-2 flex justify-between items-center z-10 bg-background/80 dark:bg-gray-900">
+        <header className="w-full p-2 md:p-2 flex justify-between items-center z-10 bg-background/80 dark:bg-gray-900">
             <div className="flex items-center space-x-3">
                
             </div>

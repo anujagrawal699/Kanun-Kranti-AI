@@ -5,7 +5,7 @@ import { Gavel } from 'lucide-react';
 const welcomePhrases = [
   { text: "Welcome to Kanun Kranti AI", lang: "English" },
   { text: "कानून क्रांति AI में आपका स्वागत है", lang: "Hindi" },
-  { text: "कानून क्रांती AIमध्ये आपले स्वागत आहे", lang: "Marathi" },
+  { text: "कानून क्रांती AI मध्ये आपले स्वागत आहे", lang: "Marathi" },
   { text: "কানুন ক্রান্তিতে আপনাকে স্বাগতম", lang: "Bengali" },
   { text: "કાનૂન ક્રાંતિમાં આપનું સ્વાગત છે", lang: "Gujarati" },
   { text: "ਕਾਨੂਨ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ", lang: "Punjabi" },
