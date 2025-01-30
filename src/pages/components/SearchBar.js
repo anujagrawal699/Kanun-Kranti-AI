@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SpeedSelection from './SpeedSelection';
 import { useTheme } from './ThemeContext'; // Make sure this path is correct
 import axios from 'axios';
 import Card from './Card';
 
 const Searchbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedSpeed, setSelectedSpeed] = useState('casestudy');
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const dropdownRef = useRef(null);
@@ -23,18 +21,7 @@ const Searchbar = () => {
     ];
 
 
-    // Toggle dropdown visibility
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
-
-    // Close dropdown if clicked outside
-    const closeDropdown = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsOpen(false);
-        }
-    };
-
+    
     useEffect(() => {
         adjustTextareaHeight();
     }, [inputValue]);
@@ -57,17 +44,7 @@ const Searchbar = () => {
             handleSearchSubmit(e);
         }
     };
-
-    // Get the label of the selected speed
-    const getSelectedLabel = () => {
-        const options = [
-            { label: 'Case Study', value: 'casestudy' },
-            { label: 'Legal Terms', value: 'legalterm' },
-            { label: 'Case Summary', value: 'casesummary' },
-        ];
-        const selectedOption = options.find(option => option.value === selectedSpeed);
-        return selectedOption ? selectedOption.label : 'Case Study';
-    };
+    
     const callGeminiApi = async (query) => {
         setIsLoading(true);
         const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;

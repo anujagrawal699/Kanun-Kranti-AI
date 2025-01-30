@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaSearch, FaSortAmountDown, FaBookOpen, FaBalanceScale } from 'react-icons/fa';
 import { ChevronDown, List, Grid, BookOpen, Scale, Gavel, Info, Download, Share2, ArrowLeft, Menu, Filter, AlertCircle, X, Search } from 'lucide-react';
 import Card from './components/Card';
 import LawCard from './components/LawCard';
