@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import SearchResults from './pages/SearchResults';
 import Home from './pages/Home';
-import LoginPage from './pages/LoginPage'; // Make sure this path is correct
+import LoginPage from './pages/LoginPage';
 import { ThemeProvider } from './pages/components/ThemeContext';
 
 function App() {
